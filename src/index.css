@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/* EN: Enable dark mode through the .dark class. | FR: Active le mode sombre via la classe .dark. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* EN: Default light theme tokens. | FR: Jetons du thème clair par défaut. */
+@theme {
+  --color-ink: #1e1d1c;
+  --color-paper: #f1f0e8;
+
+  --color-ink-80: rgba(30, 29, 28, 0.8);
+  --color-ink-40: rgba(30, 29, 28, 0.4);
+  --color-ink-16: rgba(30, 29, 28, 0.16);
+  --color-ink-08: rgba(30, 29, 28, 0.08);
+  --color-ink-04: rgba(30, 29, 28, 0.04);
+
+  --color-paper-80: rgba(241, 240, 232, 0.8);
+  --color-paper-16: rgba(241, 240, 232, 0.16);
+  --color-paper-08: rgba(241, 240, 232, 0.08);
+
+  --font-display: "Iosevka Charon Mono", monospace;
+  --font-mono: "Iosevka Charon Mono", monospace;
+  --font-sans: "Iosevka Charon Mono", monospace;
+}
+
+/* EN: Dark theme token overrides. | FR: Surcharges des jetons du thème sombre. */
+.dark {
+  --color-ink: #e8e6de;
+  --color-paper: #0e0d0c;
+
+  --color-ink-80: rgba(232, 230, 222, 0.8);
+  --color-ink-40: rgba(232, 230, 222, 0.4);
+  --color-ink-16: rgba(232, 230, 222, 0.16);
+  --color-ink-08: rgba(232, 230, 222, 0.08);
+  --color-ink-04: rgba(232, 230, 222, 0.04);
+
+  --color-paper-80: rgba(14, 13, 12, 0.8);
+  --color-paper-16: rgba(14, 13, 12, 0.16);
+  --color-paper-08: rgba(14, 13, 12, 0.08);
+}
+
+/* EN: Base element styles. | FR: Styles de base des éléments. */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-16);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ink-40);
+  }
+
+  input,
+  button {
+    font-family: inherit;
+  }
+}
