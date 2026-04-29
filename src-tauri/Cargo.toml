@@ -22,3 +22,9 @@ tauri-plugin-opener = "2"
 tauri-plugin-http = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+
+[patch.crates-io]
+# Tauri v2 still uses the GTK3 stack (`gtk` 0.18), which cannot resolve
+# `glib` 0.20 yet. This local patch keeps the 0.18 API and backports
+# GHSA-wrw7-89jp-8q8g's upstream `VariantStrIter::impl_get` fix.
+glib = { path = "vendor/glib-0.18.5" }
