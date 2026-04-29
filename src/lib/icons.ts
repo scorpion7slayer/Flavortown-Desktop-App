@@ -25,6 +25,14 @@ import {
   faGear,
   faGlobe,
   faArrowsRotate,
+  faMagnifyingGlass,
+  faArrowUpRightFromSquare,
+  faCodeBranch,
+  faBoxOpen,
+  faCircleInfo,
+  faLock,
+  faUsers,
+  faFire,
 } from "@fortawesome/free-solid-svg-icons";
 
 export {
@@ -67,4 +75,12 @@ export {
 
   /* EN: Action icons. | FR: Icônes d'action. */
   faArrowsRotate, // EN: Refresh or invalidate cache. | FR: Rafraîchir ou invalider le cache.
+  faMagnifyingGlass, // EN: Search. | FR: Recherche.
+  faArrowUpRightFromSquare, // EN: Open external URL. | FR: Ouvrir un lien externe.
+  faCodeBranch, // EN: Source repository. | FR: Dépôt source.
+  faBoxOpen, // EN: Empty or unavailable state. | FR: État vide ou indisponible.
+  faCircleInfo, // EN: Informational state. | FR: État informatif.
+  faLock, // EN: Locked or unavailable endpoint. | FR: Point d'entrée verrouillé ou indisponible.
+  faUsers, // EN: User list. | FR: Liste d'utilisateurs.
+  faFire, // EN: Activity or featured item. | FR: Activité ou élément mis en avant.
 };

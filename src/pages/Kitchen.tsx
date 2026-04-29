@@ -17,12 +17,13 @@ import {
   faArrowsRotate,
 } from "../lib/icons";
 import {
+  absoluteFlavortownUrl,
   getAllUserDevlogs,
-  getUserProjects,
+  getMyProjects,
   buildCumulativeChart,
   buildHeatmap,
   fmtDuration,
-  type User,
+  type UserDetail,
   type Devlog,
   type Project,
 } from "../lib/api";
@@ -319,7 +320,7 @@ function ProjectRow({ project }: { project: Project }) {
 
 /* EN: Main Kitchen page component. | FR: Composant principal de la page Kitchen. */
 interface KitchenData {
-  user: User;
+  user: UserDetail;
   devlogs: Devlog[];
   projects: Project[];
 }
@@ -343,7 +344,7 @@ export default function Kitchen({
   user: initialUser,
 }: {
   apiKey: string;
-  user: User;
+  user: UserDetail;
 }) {
   const { t } = useI18n();
   const [data, setData] = useState<KitchenData | null>(null);
@@ -363,7 +364,7 @@ export default function Kitchen({
       try {
         const [devlogs, projects] = await Promise.all([
           getAllUserDevlogs(apiKey, initialUser.project_ids),
-          getUserProjects(apiKey, initialUser.project_ids),
+          getMyProjects(apiKey),
         ]);
         setData({ user: initialUser, devlogs, projects });
       } catch (e) {
@@ -431,6 +432,7 @@ export default function Kitchen({
   const heatmap = buildHeatmap(devlogs);
 
   const totalDevlogs = devlogs.length;
+  const projectCount = Math.max(projects.length, user.project_ids.length);
   const avgSeconds =
     totalDevlogs > 0 ? Math.round(user.devlog_seconds_total / totalDevlogs) : 0;
 
@@ -463,7 +465,7 @@ export default function Kitchen({
         <div className="flex items-center gap-2 pb-0.5">
           {user.avatar && (
             <img
-              src={user.avatar}
+              src={absoluteFlavortownUrl(user.avatar) ?? ""}
               alt=""
               className="w-7 h-7 rounded-full object-cover border border-ink-16"
             />
@@ -541,7 +543,7 @@ export default function Kitchen({
                 },
                 {
                   label: t.kitchen.projects,
-                  value: String(projects.length),
+                  value: String(projectCount),
                   icon: faFolderOpen,
                 },
               ].map((s) => (

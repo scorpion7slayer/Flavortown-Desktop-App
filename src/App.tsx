@@ -1,30 +1,27 @@
 import { useState, useEffect } from "react";
+import type { JSX } from "react";
 import { useTheme } from "./lib/useTheme";
 import { useI18n } from "./lib/i18n";
-import type { ReactElement } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Sidebar, { type Page } from "./components/Sidebar";
 import ApiKeySetup from "./components/ApiKeySetup";
 import Kitchen from "./pages/Kitchen";
 import Settings from "./pages/Settings";
-import { getMe, API_KEY_STORAGE, type User } from "./lib/api";
-
-function PlaceholderPage({ label }: { label: string }) {
-  return (
-    <div className="flex-1 flex flex-col items-center justify-center gap-2">
-      <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-40">
-        {label}
-      </p>
-    </div>
-  );
-}
+import {
+  Explore,
+  Projects,
+  Achievements,
+  Leaderboard,
+  UnavailablePage,
+} from "./pages/ApiPages";
+import { getMe, API_KEY_STORAGE, type UserDetail } from "./lib/api";
 
 export default function App() {
   const { isDark, toggle: toggleTheme } = useTheme();
   const { t } = useI18n();
   const [apiKey, setApiKey] = useState<string>("");
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserDetail | null>(null);
   const [bootstrapping, setBootstrapping] = useState(true);
   const [activePage, setActivePage] = useState<Page>("kitchen");
 
@@ -79,19 +76,33 @@ export default function App() {
   }
 
   /* EN: Render the main application shell. | FR: Affiche la structure principale de l'application. */
-  const placeholder = (label: string): ReactElement => (
-    <PlaceholderPage label={`${label} — ${t.placeholder.comingSoon}`} />
-  );
-
-  const PAGES: Record<Page, ReactElement> = {
+  const PAGES: Record<Page, JSX.Element> = {
     kitchen: <Kitchen key={apiKey} apiKey={apiKey} user={user!} />,
-    explore: placeholder(t.nav.explore),
-    projects: placeholder(t.nav.projects),
-    sidequests: placeholder(t.nav.sidequests),
-    vote: placeholder(t.nav.vote),
-    shop: placeholder(t.nav.shop),
-    achievements: placeholder(t.nav.achievements),
-    leaderboard: placeholder(t.nav.leaderboard),
+    explore: <Explore apiKey={apiKey} />,
+    projects: <Projects apiKey={apiKey} />,
+    sidequests: (
+      <UnavailablePage
+        title={t.nav.sidequests}
+        message={t.unavailable.sidequests}
+        externalUrl="https://flavortown.hackclub.com/sidequests"
+      />
+    ),
+    vote: (
+      <UnavailablePage
+        title={t.nav.vote}
+        message={t.unavailable.vote}
+        externalUrl="https://flavortown.hackclub.com/votes/new"
+      />
+    ),
+    shop: (
+      <UnavailablePage
+        title={t.nav.shop}
+        message={t.unavailable.shop}
+        externalUrl="https://flavortown.hackclub.com/shop"
+      />
+    ),
+    achievements: <Achievements apiKey={apiKey} initialUser={user!} />,
+    leaderboard: <Leaderboard apiKey={apiKey} />,
     settings: <Settings />,
   };
 

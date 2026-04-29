@@ -20,20 +20,25 @@ What already works:
 - Cumulative devlog time chart
 - Activity heatmap
 - Project list
+- Recent devlog feed
+- User project catalog
+- Store catalog
+- Achievements from the authenticated user payload
+- Cookie-ranked user list based on the public users endpoint
 - Light and dark themes
 - English and French UI
 
 What is still a placeholder:
 
-- Explorer
-- Projects
 - Sidequests
 - Vote
 - Shop
-- Achievements
-- Leaderboard
+- Any screen that needs a private/unpublished endpoint
 
-At the moment, the pages with real functionality are `Kitchen` and `Settings`.
+At the moment, the pages with real functionality are `Kitchen`, `Explorer`,
+`Projects`, `Achievements`, `Leaderboard`, and `Settings`.
+`Shop`, `Sidequests`, and `Vote` intentionally open the real Flavortown pages
+because those workflows are better handled by the website.
 
 ## Stack
 
@@ -57,8 +62,11 @@ Once the key is accepted, it is stored locally and reused on the next launch.
 The app talks to `https://flavortown.hackclub.com/api/v1` and fetches:
 
 - the current user
-- the user's projects
+- the user's projects through `/users/me/projects`
 - the devlogs attached to each project
+- recent global devlogs
+- store items
+- public users for the lightweight leaderboard view
 
 Those responses are then aggregated on the client to build:
 
@@ -126,6 +134,38 @@ bun run build
 bun run tauri build
 ```
 
+### Cross-platform and architecture builds
+
+Tauri builds native bundles on the host platform. The app code is kept portable
+for macOS, Windows, and Linux; actual bundle generation still depends on the
+toolchains and system webview packages installed for each target.
+
+Useful targets:
+
+```bash
+# macOS universal app bundle, Intel + Apple Silicon
+bun run tauri build -- --target universal-apple-darwin
+
+# Windows 64-bit
+bun run tauri build -- --target x86_64-pc-windows-msvc
+
+# Windows 32-bit/i686
+bun run tauri build -- --target i686-pc-windows-msvc
+
+# Linux x64
+bun run tauri build -- --target x86_64-unknown-linux-gnu
+
+# Linux ARM64
+bun run tauri build -- --target aarch64-unknown-linux-gnu
+
+# Linux ARMv7
+bun run tauri build -- --target armv7-unknown-linux-gnueabihf
+```
+
+Linux ARM builds need architecture-specific WebKitGTK development packages on
+the build machine, for example `libwebkit2gtk-4.1-dev:arm64` or
+`libwebkit2gtk-4.1-dev:armhf` depending on the target.
+
 ## Project layout
 
 ```text
@@ -159,6 +199,8 @@ src-tauri/
 - `src/lib/api.ts` contains the API client, type definitions, and chart/heatmap helpers.
 - `src/lib/cache.ts` contains the local caching layer.
 - `src/pages/Kitchen.tsx` is the main dashboard page.
+- `src/pages/ApiPages.tsx` contains the API-backed Explorer, Projects, Shop,
+  Achievements, Leaderboard, and unavailable-endpoint screens.
 - `src/pages/Settings.tsx` currently handles language switching.
 - `src-tauri/src/lib.rs` is a minimal Tauri wrapper that initializes the HTTP and opener plugins.
 

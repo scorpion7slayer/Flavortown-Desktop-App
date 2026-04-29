@@ -24,5 +24,12 @@ export default defineConfig(async () => ({
     watch: {
       ignored: ["**/src-tauri/**"],
     },
+    proxy: {
+      "/api/v1": {
+        target: "https://flavortown.hackclub.com",
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
 }));

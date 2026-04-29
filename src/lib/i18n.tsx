@@ -23,6 +23,20 @@ const en = {
     light: "Light mode",
     dark: "Dark mode",
   },
+  common: {
+    loading: "Loading…",
+    refresh: "Refresh",
+    retry: "Retry",
+    search: "Search",
+    updated: "Updated",
+    unknownStatus: "Unknown status",
+    showing: (shown: number, total: number) => `Showing ${shown} of ${total}`,
+  },
+  projectLinks: {
+    demo: "Demo",
+    repo: "Repo",
+    readme: "README",
+  },
   kitchen: {
     dashboard: "Dashboard",
     statsTitle: "Cookie stats",
@@ -65,6 +79,66 @@ const en = {
   placeholder: {
     comingSoon: "coming soon",
   },
+  explore: {
+    eyebrow: "Discovery",
+    projects: "Projects",
+    devlogs: "Recent devlogs",
+    devlogTitle: (id: number) => `Devlog #${id}`,
+    workedOn: "worked on",
+    likes: "likes",
+    comments: "comments",
+    scrapbook: "Scrapbook",
+    searchPlaceholder: "Search projects",
+    emptyTitle: "No devlogs found",
+    emptyBody: "Refresh the devlog feed or try again later.",
+  },
+  projects: {
+    eyebrow: "Your work",
+    mine: "My projects",
+    loggedTime: (duration: string) => `${duration} logged`,
+    emptyTitle: "No projects yet",
+    emptyBody: "Projects you create on Flavortown will appear here.",
+  },
+  shop: {
+    eyebrow: "Cookie store",
+    catalog: "Catalog",
+    item: "Item",
+    stock: "Stock",
+    maxQty: "Max qty",
+    noDescription: "No description available.",
+    regions: (regions: string) => `Available in ${regions}`,
+    noRegions: "No region availability listed.",
+    emptyTitle: "No store items",
+    emptyBody: "The store endpoint returned an empty catalog.",
+  },
+  achievements: {
+    eyebrow: "Progress",
+    unlocked: "Unlocked achievements",
+    emptyTitle: "No achievements unlocked yet",
+    emptyBody: "When the API reports achievements for your account, they will show up here.",
+  },
+  leaderboard: {
+    eyebrow: "Community",
+    cookies: "Cookies",
+    searchPlaceholder: "Search users",
+    projectsCount: (n: number) => `${n} projects`,
+    scopeNote:
+      "This view ranks the current API page by cookies because the public API does not expose a dedicated leaderboard endpoint yet.",
+    emptyTitle: "No users found",
+    emptyBody: "Try another search or refresh the user list.",
+  },
+  unavailable: {
+    eyebrow: "Flavortown web",
+    title: "Open the website",
+    shop:
+      "Use the Flavortown website for the shop. It has the best checkout, goals, region, stock, and unlock flow.",
+    sidequests:
+      "Use the Flavortown website for sidequests. It has the full submissions, unlocks, and sidequest pages.",
+    vote:
+      "Use the Flavortown website for voting. It has the real voting flow and current vote availability.",
+    openRealSite: "Open in browser",
+    whatWorks: "API-backed screens",
+  },
   errors: {
     rateLimited: "Too many requests — please wait a few seconds and try again.",
     invalidKey: "Invalid API key.",
@@ -88,6 +162,20 @@ const fr: typeof en = {
   theme: {
     light: "Mode clair",
     dark: "Mode sombre",
+  },
+  common: {
+    loading: "Chargement…",
+    refresh: "Rafraîchir",
+    retry: "Réessayer",
+    search: "Rechercher",
+    updated: "Mis à jour",
+    unknownStatus: "Statut inconnu",
+    showing: (shown: number, total: number) => `${shown} sur ${total} affichés`,
+  },
+  projectLinks: {
+    demo: "Démo",
+    repo: "Repo",
+    readme: "README",
   },
   kitchen: {
     dashboard: "Tableau de bord",
@@ -130,6 +218,66 @@ const fr: typeof en = {
   },
   placeholder: {
     comingSoon: "bientôt disponible",
+  },
+  explore: {
+    eyebrow: "Découverte",
+    projects: "Projets",
+    devlogs: "Devlogs récents",
+    devlogTitle: (id: number) => `Devlog #${id}`,
+    workedOn: "a travaillé sur",
+    likes: "likes",
+    comments: "commentaires",
+    scrapbook: "Scrapbook",
+    searchPlaceholder: "Rechercher des projets",
+    emptyTitle: "Aucun devlog trouvé",
+    emptyBody: "Rafraîchis le feed de devlogs ou réessaie plus tard.",
+  },
+  projects: {
+    eyebrow: "Ton travail",
+    mine: "Mes projets",
+    loggedTime: (duration: string) => `${duration} enregistrés`,
+    emptyTitle: "Aucun projet pour l'instant",
+    emptyBody: "Les projets créés sur Flavortown apparaîtront ici.",
+  },
+  shop: {
+    eyebrow: "Boutique cookies",
+    catalog: "Catalogue",
+    item: "Article",
+    stock: "Stock",
+    maxQty: "Qté max",
+    noDescription: "Aucune description disponible.",
+    regions: (regions: string) => `Disponible en ${regions}`,
+    noRegions: "Aucune disponibilité régionale indiquée.",
+    emptyTitle: "Aucun article",
+    emptyBody: "L'endpoint boutique a renvoyé un catalogue vide.",
+  },
+  achievements: {
+    eyebrow: "Progression",
+    unlocked: "Achievements débloqués",
+    emptyTitle: "Aucun achievement débloqué pour l'instant",
+    emptyBody: "Quand l'API remontera des achievements pour ton compte, ils apparaîtront ici.",
+  },
+  leaderboard: {
+    eyebrow: "Communauté",
+    cookies: "Cookies",
+    searchPlaceholder: "Rechercher des utilisateurs",
+    projectsCount: (n: number) => `${n} projets`,
+    scopeNote:
+      "Cette vue classe la page API courante par cookies, car l'API publique n'expose pas encore d'endpoint leaderboard dédié.",
+    emptyTitle: "Aucun utilisateur trouvé",
+    emptyBody: "Essaie une autre recherche ou rafraîchis la liste.",
+  },
+  unavailable: {
+    eyebrow: "Flavortown web",
+    title: "Ouvrir le site",
+    shop:
+      "Pour le shop, passe par le site de Flavortown: c'est mieux pour les commandes, goals, régions, stocks et déblocages.",
+    sidequests:
+      "Pour les sidequests, passe par le site de Flavortown: c'est mieux pour voir les submissions, déblocages et pages complètes.",
+    vote:
+      "Pour le vote, passe par le site de Flavortown: c'est mieux pour utiliser le vrai flux et voir tes votes disponibles.",
+    openRealSite: "Ouvrir dans le navigateur",
+    whatWorks: "Écrans branchés à l'API",
   },
   errors: {
     rateLimited:

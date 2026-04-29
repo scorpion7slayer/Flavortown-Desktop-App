@@ -61,11 +61,35 @@ function invalidate(prefix: string): void {
   }
 }
 
-/** EN: Invalidate all cached data associated with an API key. | FR: Invalide toutes les données en cache associées à une clé API. */
-export function invalidateUser(apiKey: string): void {
+export function cacheScope(secret: string): string {
+  let hash = 2166136261;
+  for (let i = 0; i < secret.length; i++) {
+    hash ^= secret.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0).toString(36);
+}
+
+export function invalidateLegacyUserCache(apiKey: string): void {
   invalidate(`me:${apiKey}`);
+  invalidate(`projects:me:${apiKey}`);
   invalidate(`project:${apiKey}:`);
   invalidate(`devlogs:${apiKey}:`);
+  invalidate(`projects:list:${apiKey}:`);
+  invalidate(`users:list:${apiKey}:`);
+  invalidate(`devlogs:list:${apiKey}:`);
+  invalidate(`store:list:${apiKey}`);
+}
+
+/** EN: Invalidate all cached data associated with an API key. | FR: Invalide toutes les données en cache associées à une clé API. */
+export function invalidateUser(apiKey: string): void {
+  const scope = cacheScope(apiKey);
+  invalidate(`${scope}:me`);
+  invalidate(`${scope}:projects:me`);
+  invalidate(`${scope}:project:`);
+  invalidate(`${scope}:devlogs:`);
+
+  invalidateLegacyUserCache(apiKey);
 }
 
 export const apiCache = { read, write, invalidate };
