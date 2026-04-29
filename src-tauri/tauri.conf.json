@@ -27,6 +27,9 @@
             "icons/icon.icns",
             "icons/icon.ico"
         ],
+        "macOS": {
+            "signingIdentity": "-"
+        },
         "targets": "all"
     },
     "identifier": "com.theo.flavortown-desktop-app",
