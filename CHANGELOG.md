@@ -8,6 +8,13 @@ The format is based on Keep a Changelog, adapted to the current size of the proj
 
 - No unreleased entries yet.
 
+## [0.1.1]
+
+### Fixed
+
+- Exclude vendored third-party Rust sources from CodeQL analysis so app code scanning is not blocked by patched dependency internals.
+- Install `xdg-utils` in Linux release jobs so ARM64 AppImage bundling can find `xdg-open`.
+
 ## [0.1.0]
 
 ### Added

@@ -1,0 +1,6 @@
+name: "Flavortown CodeQL config"
+
+paths-ignore:
+  - "src-tauri/vendor/**"
+  - "node_modules/**"
+  - "dist/**"
