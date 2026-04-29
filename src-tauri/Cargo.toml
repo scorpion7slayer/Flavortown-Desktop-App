@@ -28,3 +28,7 @@ serde_json = "1"
 # `glib` 0.20 yet. This local patch keeps the 0.18 API and backports
 # GHSA-wrw7-89jp-8q8g's upstream `VariantStrIter::impl_get` fix.
 glib = { path = "vendor/glib-0.18.5" }
+# `selectors` 0.24 still pulls `phf_generator` 0.8, whose published crate
+# depends on vulnerable `rand` 0.7. The crate API compiles cleanly with
+# `rand` 0.8.6, so patch only that build-time dependency.
+phf_generator = { path = "vendor/phf_generator-0.8.0" }
